@@ -14,6 +14,7 @@ class UInputAction;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+class UActorDataComponent;
 
 UCLASS(config=Game)
 class AModuleAndPluginCharacter : public ACharacter
@@ -51,6 +52,8 @@ public:
 	
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Temporary")
+	UActorDataComponent* DataComponent;
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);

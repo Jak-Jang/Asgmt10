@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Temporary/ActorDataComponent.h"
 #include "Test/TestActor.h"
 #include "Temporary/TemporaryActor.h"
 
@@ -54,6 +55,8 @@ AModuleAndPluginCharacter::AModuleAndPluginCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+	DataComponent = CreateDefaultSubobject<UActorDataComponent>(TEXT("TemporaryData"));
 }
 
 void AModuleAndPluginCharacter::BeginPlay()
@@ -62,6 +65,9 @@ void AModuleAndPluginCharacter::BeginPlay()
 
 	GetWorld()->SpawnActor(ATestActor::StaticClass());
 	GetWorld()->SpawnActor(ATemporaryActor::StaticClass());
+
+	GetCharacterMovement()->MaxWalkSpeed = DataComponent->MovementSpeed;
+	GetCharacterMovement()->JumpZVelocity = DataComponent->JumpSpeed;
 }
 
 //////////////////////////////////////////////////////////////////////////
